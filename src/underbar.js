@@ -106,17 +106,16 @@
 	_.uniq = (array, isSorted, iterator) => {
 		/* START SOLUTION */
 		if (isSorted === true) {
-			return _.filter(array, (element, index, collection) => {
-				return element !== collection[index - 1];
-			});
+			return _.filter(
+				array,
+				(element, index, collection) => element !== collection[index - 1]
+			);
 		} else {
 			let res = [],
 				mem = {},
 				mem2 = {};
 			_.each(array, (element, index) => {
-				if (!mem[element]) {
-					mem[element] = index;
-				}
+				if (!mem[element]) mem[element] = index;
 			});
 			_.each(mem, (element, key) => {
 				mem2[element] = Number(key);
@@ -126,9 +125,8 @@
 				mem2 = {};
 				iterator = isSorted;
 				_.each(mem, (element, index, collection) => {
-					if (!mem2[iterator(element, index, collection)]) {
+					if (!mem2[iterator(element, index, collection)])
 						mem2[iterator(element, index, collection)] = element;
-					}
 				});
 			}
 			_.each(mem2, element => {
@@ -140,7 +138,7 @@
 	};
 
 	// Return the results of applying an iterator to each element.
-	_.map = function(collection, iterator) {
+	_.map = (collection, iterator) => {
 		/* START SOLUTION */
 		var res = [];
 		_.each(collection, (element, index, collection) => {
@@ -159,13 +157,16 @@
 	// Takes an array of objects and returns and array of the values of
 	// a certain property in it. E.g. take an array of people and return
 	// an array of just their ages
-	_.pluck = function(collection, key) {
+	_.pluck = (collection, key) =>
 		// TIP: map is really handy when you want to transform an array of
 		// values into a new array of values. _.pluck() is solved for you
 		// as an example of this.
 		/* START SOLUTION */
-		/* END SOLUTION */
-	};
+		_.map(collection, (element, index, collection) => {
+			return element[key];
+		});
+
+	/* END SOLUTION */
 
 	// Reduces an array or object to a single value by repetitively calling
 	// iterator(accumulator, item) for each item. accumulator should be
