@@ -142,8 +142,11 @@
 	// Return the results of applying an iterator to each element.
 	_.map = function(collection, iterator) {
 		/* START SOLUTION */
-		var res = []
-		_.each(collection,())
+		var res = [];
+		_.each(collection, (element, index, collection) => {
+			res.push(iterator(element, index, collection));
+		});
+		return res;
 		/* END SOLUTION */
 	};
 
