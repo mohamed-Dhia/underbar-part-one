@@ -60,7 +60,7 @@
 	//
 	// Note: _.each does not have a return value, but rather simply runs the
 	// iterator function over each item in the input collection.
-	_.each = function(collection, iterator) {
+	_.each = (collection, iterator) => {
 		/* START SOLUTION */
 		if (Array.isArray(collection)) {
 			for (let index = 0; index < collection.length; index++)
@@ -72,14 +72,22 @@
 
 	// Returns the index at which value can be found in the array, or -1 if value
 	// is not present in the array.
-	_.indexOf = function(array, target) {
+	_.indexOf = (array, target, starting = 0) => {
 		/* START SOLUTION */
+		for (let index = starting; index < array.length; index++)
+			if (array[index] === target) return index;
+		return -1;
 		/* END SOLUTION */
 	};
 
 	// Return all elements of an array that pass a truth test.
 	_.filter = function(collection, test) {
 		/* START SOLUTION */
+		var res = [];
+		_.each(collection, (element, index) => {
+			if (test(element, index)) res.push(element);
+		});
+		return res;
 		/* END SOLUTION */
 	};
 
