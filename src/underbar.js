@@ -84,8 +84,8 @@
 	_.filter = function(collection, test) {
 		/* START SOLUTION */
 		var res = [];
-		_.each(collection, (element, index) => {
-			if (test(element, index)) res.push(element);
+		_.each(collection, (element, index, collection) => {
+			if (test(element, index, collection)) res.push(element);
 		});
 		return res;
 		/* END SOLUTION */
@@ -94,18 +94,56 @@
 	// Return all elements of an array that don't pass a truth test.
 	_.reject = function(collection, test) {
 		/* START SOLUTION */
+		var res = [];
+		_.each(collection, (element, index, collection) => {
+			if (!test(element, index, collection)) res.push(element);
+		});
+		return res;
 		/* END SOLUTION */
 	};
 
 	// Produce a duplicate-free version of the array.
-	_.uniq = function(array, isSorted, iterator) {
+	_.uniq = (array, isSorted, iterator) => {
 		/* START SOLUTION */
+		if (isSorted === true) {
+			return _.filter(array, (element, index, collection) => {
+				return element !== collection[index - 1];
+			});
+		} else {
+			let res = [],
+				mem = {},
+				mem2 = {};
+			_.each(array, (element, index) => {
+				if (!mem[element]) {
+					mem[element] = index;
+				}
+			});
+			_.each(mem, (element, key) => {
+				mem2[element] = Number(key);
+			});
+			if (isSorted !== false && isSorted !== undefined) {
+				mem = mem2;
+				mem2 = {};
+				iterator = isSorted;
+				_.each(mem, (element, index, collection) => {
+					if (!mem2[iterator(element, index, collection)]) {
+						mem2[iterator(element, index, collection)] = element;
+					}
+				});
+			}
+			_.each(mem2, element => {
+				res.push(element);
+			});
+			return res;
+		}
 		/* END SOLUTION */
 	};
 
 	// Return the results of applying an iterator to each element.
 	_.map = function(collection, iterator) {
 		/* START SOLUTION */
+		var res = []
+		_.each(collection,())
 		/* END SOLUTION */
 	};
 
