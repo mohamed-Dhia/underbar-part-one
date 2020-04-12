@@ -181,11 +181,9 @@
 	_.reduce = function(collection, iterator, accumulator) {
 		/* START SOLUTION */
 		_.each(collection, (element, index, collection) => {
-			if (accumulator === undefined && !index) {
-				accumulator = collection[0];
-			} else {
-				accumulator = iterator(accumulator, element, index, collection);
-			}
+			accumulator === undefined && !index
+				? (accumulator = collection[0])
+				: (accumulator = iterator(accumulator, element, index, collection));
 		});
 		return accumulator;
 		/* END SOLUTION */
